@@ -7,7 +7,7 @@ from openpyxl import Workbook
 driver = webdriver.Chrome('chromeDriver')
 
 def createCompanyInfo(company_link):
-    url = 'https://thevc.kr/' + company_link
+    url = 'https://thevc.kr' + company_link
     driver.get(url)
 
     html = driver.page_source
@@ -25,11 +25,10 @@ def createCompanyInfo(company_link):
     contact_info = soup_text.find(attrs={"class": "contact_info"})
     email = contact_info.select("ul > li:nth-of-type(1) > span > a")[0].get('href')
     email = email[7:]
-    print(email)
     tel = contact_info.select("ul > li:nth-of-type(2)) > span")[0].string
     link = contact_info.select("ul > li:nth-of-type(3)) > span > a")[0].get('href')
 
-    return Company(name, service, tech, category, content, born, invested_money, email, tel, link)
+    return Company(name, service, tech, category, content, born, invested_money, email, tel, link, url)
 
 def createExcel(company_list):
     wb = Workbook()
@@ -39,7 +38,7 @@ def createExcel(company_list):
     wb.save("company_info.xlsx")
 
 class Company:
-    def __init__(self, name, service, tech, category, content, born, invested_money, email, tel, link):
+    def __init__(self, name, service, tech, category, content, born, invested_money, email, tel, link, url):
         self.name = name
         self.service = service
         self.tech = tech
@@ -50,3 +49,4 @@ class Company:
         self.email = email
         self.tel = tel
         self.link = link
+        self.url = url

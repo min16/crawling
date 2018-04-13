@@ -19,7 +19,6 @@ def getUrl(file_name):
         # 중복없이 투자금액 100억이하, 5억 이하일 경우에만 기업리스트에 추가
         if money > 100.0 or money < 5.0 or link in link_list:
             continue
-        # print("link", link, "money", money)
         link_list.append(link)
     # print(link_list)
     return link_list
