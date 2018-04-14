@@ -28,6 +28,8 @@ def createCompanyInfo(company_link):
     tel = contact_info.select("ul > li:nth-of-type(2)) > span")[0].string
     link = contact_info.select("ul > li:nth-of-type(3)) > span > a")[0].get('href')
 
+    url = '=HYPERLINK("{}", "{}")'.format(url, url)
+    link = '=HYPERLINK("{}", "{}")'.format(link, link)
     return Company(name, service, tech, category, content, born, invested_money, email, tel, link, url)
 
 def createExcel(company_list):
